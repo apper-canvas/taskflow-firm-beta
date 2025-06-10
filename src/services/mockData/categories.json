@@ -1,0 +1,42 @@
+[
+  {
+    "id": "work",
+    "name": "Work",
+    "color": "#EF4444",
+    "icon": "Briefcase",
+    "taskCount": 0,
+    "order": 1
+  },
+  {
+    "id": "personal",
+    "name": "Personal",
+    "color": "#10B981",
+    "icon": "User",
+    "taskCount": 0,
+    "order": 2
+  },
+  {
+    "id": "learning",
+    "name": "Learning",
+    "color": "#3B82F6",
+    "icon": "BookOpen",
+    "taskCount": 0,
+    "order": 3
+  },
+  {
+    "id": "health",
+    "name": "Health",
+    "color": "#8B5CF6",
+    "icon": "Heart",
+    "taskCount": 0,
+    "order": 4
+  },
+  {
+    "id": "shopping",
+    "name": "Shopping",
+    "color": "#F59E0B",
+    "icon": "ShoppingCart",
+    "taskCount": 0,
+    "order": 5
+  }
+]

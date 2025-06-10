@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "title": "Finish quarterly business review presentation",
+    "completed": false,
+    "priority": "high",
+    "categoryId": "work",
+    "dueDate": "2024-01-15",
+    "createdAt": "2024-01-10T09:00:00.000Z",
+    "completedAt": null,
+    "archived": false
+  },
+  {
+    "id": "2", 
+    "title": "Review and approve marketing campaign designs",
+    "completed": false,
+    "priority": "medium",
+    "categoryId": "work",
+    "dueDate": "2024-01-16",
+    "createdAt": "2024-01-08T14:30:00.000Z",
+    "completedAt": null,
+    "archived": false
+  },
+  {
+    "id": "3",
+    "title": "Schedule annual dentist appointment",
+    "completed": true,
+    "priority": "low",
+    "categoryId": "personal",
+    "dueDate": null,
+    "createdAt": "2024-01-07T10:15:00.000Z",
+    "completedAt": "2024-01-10T16:45:00.000Z",
+    "archived": false
+  },
+  {
+    "id": "4",
+    "title": "Plan weekend getaway with family",
+    "completed": false,
+    "priority": "medium",
+    "categoryId": "personal",
+    "dueDate": "2024-01-20",
+    "createdAt": "2024-01-06T11:20:00.000Z",
+    "completedAt": null,
+    "archived": false
+  },
+  {
+    "id": "5",
+    "title": "Complete online certification course",
+    "completed": false,
+    "priority": "high",
+    "categoryId": "learning",
+    "dueDate": "2024-01-25",
+    "createdAt": "2024-01-05T08:00:00.000Z",
+    "completedAt": null,
+    "archived": false
+  }
+]
