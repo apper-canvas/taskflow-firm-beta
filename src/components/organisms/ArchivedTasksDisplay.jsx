@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
-import ApperIcon from '../components/ApperIcon';
-import TaskItem from '../components/TaskItem';
-import EmptyState from '../components/EmptyState';
-import SkeletonLoader from '../components/SkeletonLoader';
-import ErrorState from '../components/ErrorState';
-import TaskProvider, { useTaskContext } from '../context/TaskContext';
-import { taskService } from '../services';
+import ApperIcon from '@/components/ApperIcon';
+import TaskCard from '@/components/molecules/TaskCard';
+import EmptyStateMessage from '@/components/molecules/EmptyStateMessage';
+import LoadingSkeleton from '@/components/molecules/LoadingSkeleton';
+import ErrorMessage from '@/components/molecules/ErrorMessage';
+import Button from '@/components/atoms/Button';
+import { useTaskContext } from '@/context/TaskContext';
+import { taskService } from '@/services'; // Corrected import path
 
-const ArchiveContent = () => {
-  const { tasks, loadTasks, updateTask } = useTaskContext();
+const ArchivedTasksDisplay = () => {
+  const { tasks, categories, loadTasks, updateTask } = useTaskContext();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -62,7 +63,7 @@ const ArchiveContent = () => {
           <h2 className="text-2xl font-bold font-heading text-gray-900 mb-2">Archive</h2>
           <p className="text-gray-600">Completed and archived tasks</p>
         </div>
-        <SkeletonLoader count={5} />
+        <LoadingSkeleton count={5} />
       </div>
     );
   }
@@ -70,9 +71,9 @@ const ArchiveContent = () => {
   if (error) {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <ErrorState 
+        <ErrorMessage 
           message={error}
-          onRetry={() => window.location.reload()}
+          onRetry={() => window.location.reload()} // Simple retry for this page for now
         />
       </div>
     );
@@ -86,7 +87,7 @@ const ArchiveContent = () => {
           <p className="text-gray-600">Completed and archived tasks</p>
         </div>
         
-        <EmptyState
+        <EmptyStateMessage
           icon="Archive"
           title="No archived tasks yet"
           description="Completed tasks will appear here when you archive them"
@@ -112,6 +113,7 @@ const ArchiveContent = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
           >
+            {/* Re-using TaskCard structure but with specific archive page display */}
             <div className="bg-white rounded-lg border border-gray-200 p-4 opacity-75">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3 flex-1">
@@ -133,23 +135,23 @@ const ArchiveContent = () => {
                 </div>
                 
                 <div className="flex items-center space-x-2">
-                  <motion.button
+                  <Button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleRestoreTask(task.id)}
                     className="px-3 py-1 text-sm bg-secondary text-white rounded-md hover:bg-primary transition-colors"
                   >
                     Restore
-                  </motion.button>
+                  </Button>
                   
-                  <motion.button
+                  <Button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handlePermanentDelete(task.id)}
                     className="p-2 text-gray-400 hover:text-error transition-colors"
                   >
                     <ApperIcon name="Trash2" size={16} />
-                  </motion.button>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -160,19 +162,4 @@ const ArchiveContent = () => {
   );
 };
 
-const Archive = () => {
-  return (
-    <TaskProvider>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="h-full"
-      >
-        <ArchiveContent />
-      </motion.div>
-    </TaskProvider>
-  );
-};
-
-export default Archive;
+export default ArchivedTasksDisplay;

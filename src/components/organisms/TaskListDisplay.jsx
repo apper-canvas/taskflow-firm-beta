@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
-import TaskItem from './TaskItem';
-import EmptyState from './EmptyState';
-import SkeletonLoader from './SkeletonLoader';
-import ErrorState from './ErrorState';
-import ApperIcon from './ApperIcon';
-import { useTaskContext } from '../context/TaskContext';
+import TaskCard from '@/components/molecules/TaskCard';
+import EmptyStateMessage from '@/components/molecules/EmptyStateMessage';
+import LoadingSkeleton from '@/components/molecules/LoadingSkeleton';
+import ErrorMessage from '@/components/molecules/ErrorMessage';
+import ApperIcon from '@/components/ApperIcon';
+import { useTaskContext } from '@/context/TaskContext';
 
-const TaskList = () => {
+const TaskListDisplay = () => {
   const { 
     tasks, 
     categories, 
@@ -105,7 +105,7 @@ const TaskList = () => {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <SkeletonLoader count={5} />
+        <LoadingSkeleton count={5} />
       </div>
     );
   }
@@ -113,7 +113,7 @@ const TaskList = () => {
   if (error) {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <ErrorState 
+        <ErrorMessage 
           message={error}
           onRetry={loadTasks}
         />
@@ -125,12 +125,12 @@ const TaskList = () => {
     if (searchQuery) {
       return (
         <div className="max-w-4xl mx-auto p-6">
-          <EmptyState
+          <EmptyStateMessage
             icon="Search"
             title="No tasks found"
             description={`No tasks match "${searchQuery}"`}
             actionLabel="Clear Search"
-            onAction={() => window.location.reload()}
+            onAction={() => loadTasks()} // Re-load tasks without search query
           />
         </div>
       );
@@ -138,13 +138,15 @@ const TaskList = () => {
 
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <EmptyState
+        <EmptyStateMessage
           icon="CheckSquare"
           title="No tasks yet"
           description="Start by creating your first task to get organized"
           actionLabel="Add Your First Task"
           onAction={() => {
             // Trigger add form
+            // This assumes an external mechanism, like a global state or prop passing from MainContentArea
+            // For now, a placeholder to maintain original functionality intent:
             const addButton = document.querySelector('[data-add-task]');
             if (addButton) addButton.click();
           }}
@@ -183,7 +185,7 @@ const TaskList = () => {
                   transition={{ delay: index * 0.05 }}
                   layout
                 >
-                  <TaskItem
+                  <TaskCard
                     task={task}
                     category={categories.find(c => c.id === task.categoryId)}
                     onToggleComplete={handleToggleComplete}
@@ -225,7 +227,7 @@ const TaskList = () => {
                   transition={{ delay: index * 0.05 }}
                   layout
                 >
-                  <TaskItem
+                  <TaskCard
                     task={task}
                     category={categories.find(c => c.id === task.categoryId)}
                     onToggleComplete={handleToggleComplete}
@@ -242,4 +244,4 @@ const TaskList = () => {
   );
 };
 
-export default TaskList;
+export default TaskListDisplay;

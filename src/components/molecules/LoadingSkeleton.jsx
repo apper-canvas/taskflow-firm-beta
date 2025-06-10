@@ -1,6 +1,7 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 
-const SkeletonLoader = ({ count = 3 }) => {
+const LoadingSkeleton = ({ count = 3 }) => {
   return (
     <div className="space-y-3">
       {[...Array(count)].map((_, index) => (
@@ -30,4 +31,4 @@ const SkeletonLoader = ({ count = 3 }) => {
   );
 };
 
-export default SkeletonLoader;
+export default LoadingSkeleton;

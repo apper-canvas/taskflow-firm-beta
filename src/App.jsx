@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Layout from './Layout';
-import Home from './pages/Home';
-import Archive from './pages/Archive';
-import NotFound from './pages/NotFound';
+import HomePage from '@/components/pages/HomePage';
+import ArchivePage from '@/components/pages/ArchivePage';
+import NotFoundPage from '@/components/pages/NotFoundPage';
 import { routeArray } from './config/routes';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <div className="h-screen flex flex-col overflow-hidden bg-white">
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
+<Route index element={<HomePage />} />
             {routeArray.map((route) => (
               <Route 
                 key={route.id} 
@@ -20,7 +20,7 @@ function App() {
                 element={<route.component />} 
               />
             ))}
-            <Route path="*" element={<NotFound />} />
+<Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
         

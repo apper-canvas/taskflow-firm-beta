@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import ApperIcon from './ApperIcon';
-import { useTaskContext } from '../context/TaskContext';
+import ApperIcon from '@/components/ApperIcon';
+import CategoryCard from '@/components/molecules/CategoryCard';
+import LoadingSkeleton from '@/components/molecules/LoadingSkeleton';
+import Button from '@/components/atoms/Button';
+import { useTaskContext } from '@/context/TaskContext';
 
-const CategorySidebar = ({ searchQuery }) => {
+const CategoryNavigation = ({ searchQuery }) => {
   const { 
     categories, 
     tasks, 
@@ -35,9 +38,7 @@ const CategorySidebar = ({ searchQuery }) => {
       <aside className="w-80 bg-surface border-r border-gray-200 overflow-y-auto scrollbar-thin">
         <div className="p-6">
           <div className="animate-pulse space-y-4">
-            {[...Array(5)].map((_, i) => (
-              <div key={i} className="h-12 bg-gray-200 rounded-lg"></div>
-            ))}
+            <LoadingSkeleton count={5} />
           </div>
         </div>
       </aside>
@@ -51,7 +52,7 @@ const CategorySidebar = ({ searchQuery }) => {
           <h2 className="text-lg font-semibold font-heading text-gray-900 mb-4">Categories</h2>
           
           {/* All Tasks */}
-          <motion.button
+          <Button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setSelectedCategory('all')}
@@ -103,7 +104,7 @@ const CategorySidebar = ({ searchQuery }) => {
                 </div>
               </div>
             </div>
-          </motion.button>
+          </Button>
 
           {/* Category List */}
           <div className="space-y-2">
@@ -111,67 +112,14 @@ const CategorySidebar = ({ searchQuery }) => {
               const stats = getCategoryStats(category.id);
               
               return (
-                <motion.button
+                <CategoryCard
                   key={category.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  category={category}
+                  stats={stats}
+                  isSelected={selectedCategory === category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`w-full text-left p-3 rounded-lg border-l-4 transition-all duration-200 ${
-                    selectedCategory === category.id
-                      ? 'bg-white border-l-primary shadow-md'
-                      : 'bg-white/50 hover:bg-white hover:shadow-sm'
-                  }`}
-                  style={{ 
-                    borderLeftColor: selectedCategory === category.id ? category.color : 'transparent'
-                  }}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div 
-                        className="w-3 h-3 rounded-full"
-                        style={{ backgroundColor: category.color }}
-                      />
-                      <div>
-                        <h3 className="font-medium text-gray-900">{category.name}</h3>
-                        {stats.total > 0 ? (
-                          <p className="text-sm text-gray-500">
-                            {stats.active} active
-                            {stats.completed > 0 && `, ${stats.completed} done`}
-                          </p>
-                        ) : (
-                          <p className="text-sm text-gray-400">No tasks</p>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {stats.total > 0 && (
-                      <div className="text-right">
-                        <div className="text-sm font-medium text-gray-900">
-                          {stats.total}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          {stats.progress}%
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Progress Bar */}
-                  {stats.total > 0 && (
-                    <div className="mt-2 bg-gray-200 rounded-full h-1.5">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${stats.progress}%` }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className="h-1.5 rounded-full transition-all duration-300"
-                        style={{ backgroundColor: category.color }}
-                      />
-                    </div>
-                  )}
-                </motion.button>
+                  index={index}
+                />
               );
             })}
           </div>
@@ -215,4 +163,4 @@ const CategorySidebar = ({ searchQuery }) => {
   );
 };
 
-export default CategorySidebar;
+export default CategoryNavigation;

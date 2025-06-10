@@ -1,7 +1,9 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import ApperIcon from './ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
 
-const EmptyState = ({ 
+const EmptyStateMessage = ({ 
   icon = 'Package', 
   title, 
   description, 
@@ -32,7 +34,7 @@ const EmptyState = ({
       </p>
       
       {actionLabel && onAction && (
-        <motion.button
+        <Button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onAction}
@@ -40,10 +42,10 @@ const EmptyState = ({
         >
           <ApperIcon name="Plus" size={16} />
           <span>{actionLabel}</span>
-        </motion.button>
+        </Button>
       )}
     </motion.div>
   );
 };
 
-export default EmptyState;
+export default EmptyStateMessage;

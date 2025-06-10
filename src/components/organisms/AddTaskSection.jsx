@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
-import ApperIcon from './ApperIcon';
-import { useTaskContext } from '../context/TaskContext';
+import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
+import FormField from '@/components/molecules/FormField';
+import Input from '@/components/atoms/Input'; // Used directly for title and date
+import { useTaskContext } from '@/context/TaskContext';
 
-const AddTaskForm = ({ onSuccess, onCancel }) => {
+const AddTaskSection = ({ onSuccess, onCancel }) => {
   const { categories, createTask } = useTaskContext();
   const [formData, setFormData] = useState({
     title: '',
@@ -63,27 +66,25 @@ const AddTaskForm = ({ onSuccess, onCancel }) => {
       </div>
 
       {/* Task Title */}
-      <div>
-        <input
+      <FormField>
+        <Input
           type="text"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           onKeyDown={handleKeyDown}
           placeholder="What needs to be done?"
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 text-lg"
           autoFocus
           disabled={isSubmitting}
+          className="text-lg" // specific styling for this input
         />
-      </div>
+      </FormField>
 
       {/* Form Controls */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Priority */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Priority
-          </label>
+        <FormField label="Priority" id="priority-select">
           <select
+            id="priority-select"
             value={formData.priority}
             onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
@@ -93,14 +94,12 @@ const AddTaskForm = ({ onSuccess, onCancel }) => {
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
-        </div>
+        </FormField>
 
         {/* Category */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Category
-          </label>
+        <FormField label="Category" id="category-select">
           <select
+            id="category-select"
             value={formData.categoryId}
             onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
@@ -112,27 +111,25 @@ const AddTaskForm = ({ onSuccess, onCancel }) => {
               </option>
             ))}
           </select>
-        </div>
+        </FormField>
 
         {/* Due Date */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Due Date (Optional)
-          </label>
-          <input
+        <FormField label="Due Date (Optional)" id="due-date-input">
+          <Input
+            id="due-date-input"
             type="date"
             value={formData.dueDate}
             onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
             disabled={isSubmitting}
             min={new Date().toISOString().split('T')[0]}
+            className="px-3 py-2" // specific styling for this input
           />
-        </div>
+        </FormField>
       </div>
 
       {/* Action Buttons */}
       <div className="flex items-center justify-end space-x-3 pt-4">
-        <motion.button
+        <Button
           type="button"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -141,9 +138,9 @@ const AddTaskForm = ({ onSuccess, onCancel }) => {
           disabled={isSubmitting}
         >
           Cancel
-        </motion.button>
+        </Button>
         
-        <motion.button
+        <Button
           type="submit"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -161,7 +158,7 @@ const AddTaskForm = ({ onSuccess, onCancel }) => {
               <span>Add Task</span>
             </>
           )}
-        </motion.button>
+        </Button>
       </div>
 
       {/* Keyboard Shortcuts */}
@@ -175,4 +172,4 @@ const AddTaskForm = ({ onSuccess, onCancel }) => {
   );
 };
 
-export default AddTaskForm;
+export default AddTaskSection;

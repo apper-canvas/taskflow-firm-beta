@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { format, isPast, isToday } from 'date-fns';
-import ApperIcon from './ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import Button from '@/components/atoms/Button';
 
-const TaskItem = ({ task, category, onToggleComplete, onDelete, onArchive }) => {
+const TaskCard = ({ task, category, onToggleComplete, onDelete, onArchive }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const getPriorityColor = (priority) => {
@@ -51,7 +52,7 @@ const TaskItem = ({ task, category, onToggleComplete, onDelete, onArchive }) => 
     >
       <div className="flex items-start space-x-3">
         {/* Checkbox */}
-        <motion.button
+        <Button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => onToggleComplete(task.id)}
@@ -70,7 +71,7 @@ const TaskItem = ({ task, category, onToggleComplete, onDelete, onArchive }) => 
               <ApperIcon name="Check" size={12} />
             </motion.div>
           )}
-        </motion.button>
+        </Button>
 
         {/* Task Content */}
         <div className="flex-1 min-w-0">
@@ -121,7 +122,7 @@ const TaskItem = ({ task, category, onToggleComplete, onDelete, onArchive }) => 
               isHovered ? 'opacity-100' : 'opacity-0'
             }`}>
               {task.completed && (
-                <motion.button
+                <Button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => onArchive(task.id)}
@@ -129,10 +130,10 @@ const TaskItem = ({ task, category, onToggleComplete, onDelete, onArchive }) => 
                   title="Archive task"
                 >
                   <ApperIcon name="Archive" size={16} />
-                </motion.button>
+                </Button>
               )}
               
-              <motion.button
+              <Button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => onDelete(task.id)}
@@ -140,7 +141,7 @@ const TaskItem = ({ task, category, onToggleComplete, onDelete, onArchive }) => 
                 title="Delete task"
               >
                 <ApperIcon name="Trash2" size={16} />
-              </motion.button>
+              </Button>
             </div>
           </div>
         </div>
@@ -149,4 +150,4 @@ const TaskItem = ({ task, category, onToggleComplete, onDelete, onArchive }) => 
   );
 };
 
-export default TaskItem;
+export default TaskCard;
