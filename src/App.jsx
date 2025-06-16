@@ -5,25 +5,27 @@ import HomePage from '@/components/pages/HomePage';
 import ArchivePage from '@/components/pages/ArchivePage';
 import NotFoundPage from '@/components/pages/NotFoundPage';
 import { routeArray } from './config/routes';
+import TaskProvider from '@/context/TaskContext';
 
 function App() {
-  return (
+return (
     <BrowserRouter>
       <div className="h-screen flex flex-col overflow-hidden bg-white">
-        <Routes>
-          <Route path="/" element={<Layout />}>
-<Route index element={<HomePage />} />
-            {routeArray.map((route) => (
-              <Route 
-                key={route.id} 
-                path={route.path} 
-                element={<route.component />} 
-              />
-            ))}
-<Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-        
+        <TaskProvider>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              {routeArray.map((route) => (
+                <Route 
+                  key={route.id} 
+                  path={route.path} 
+                  element={<route.component />} 
+                />
+              ))}
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </TaskProvider>
         <ToastContainer
           position="top-right"
           autoClose={3000}
