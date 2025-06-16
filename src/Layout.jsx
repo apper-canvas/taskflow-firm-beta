@@ -1,9 +1,9 @@
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import ApperIcon from './components/ApperIcon';
-import CategorySidebar from './components/CategorySidebar';
-import SearchBar from './components/SearchBar';
+import ApperIcon from '@/components/ApperIcon';
+import CategoryNavigation from '@/components/organisms/CategoryNavigation';
+import SearchBar from '@/components/molecules/SearchBar';
 import { useTaskContext } from './context/TaskContext';
 
 const Layout = () => {
