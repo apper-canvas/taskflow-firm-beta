@@ -1,10 +1,10 @@
-import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import ApperIcon from '@/components/ApperIcon';
-import CategoryNavigation from '@/components/organisms/CategoryNavigation';
-import SearchBar from '@/components/molecules/SearchBar';
-import { useTaskContext } from './context/TaskContext';
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import ApperIcon from "@/components/ApperIcon";
+import SearchBar from "@/components/molecules/SearchBar";
+import CategoryNavigation from "@/components/organisms/CategoryNavigation";
+import { useTaskContext } from "@/context/TaskContext";
 
 const Layout = () => {
   const location = useLocation();
