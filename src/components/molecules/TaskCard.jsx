@@ -6,7 +6,7 @@ import Button from '@/components/atoms/Button';
 
 const TaskCard = ({ task, category, onToggleComplete, onDelete, onArchive }) => {
   const [isHovered, setIsHovered] = useState(false);
-
+  const [documentListenerActive, setDocumentListenerActive] = useState(false);
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'high': return 'bg-error text-white';
@@ -145,9 +145,43 @@ const TaskCard = ({ task, category, onToggleComplete, onDelete, onArchive }) => 
             </div>
           </div>
         </div>
-      </div>
+</div>
     </motion.div>
   );
 };
 
-export default TaskCard;
+// Add document mouse-down event listener when component is clicked
+const TaskCardWithDocumentListener = (props) => {
+  const [documentListenerActive, setDocumentListenerActive] = useState(false);
+
+  const handleCardClick = (e) => {
+    // Don't trigger if clicking on buttons or interactive elements
+    if (e.target.closest('button')) return;
+    
+    setDocumentListenerActive(true);
+  };
+
+  const handleDocumentMouseDown = (e) => {
+    console.log('Document mouse-down event triggered', e.target);
+    // You can add custom logic here for what should happen on document mouse-down
+    setDocumentListenerActive(false);
+  };
+
+  React.useEffect(() => {
+    if (documentListenerActive) {
+      document.addEventListener('mousedown', handleDocumentMouseDown);
+      
+      return () => {
+        document.removeEventListener('mousedown', handleDocumentMouseDown);
+      };
+    }
+  }, [documentListenerActive]);
+
+  return (
+    <div onClick={handleCardClick}>
+      <TaskCard {...props} />
+    </div>
+  );
+};
+
+export default TaskCardWithDocumentListener;
