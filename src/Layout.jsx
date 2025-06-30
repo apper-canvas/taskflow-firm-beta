@@ -29,7 +29,7 @@ const Layout = () => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 <ApperIcon name="CheckSquare" className="w-8 h-8 text-primary" />
-                <h1 className="text-2xl font-bold font-heading text-gray-900">TaskFlow 1</h1>
+                <h1 className="text-2xl font-bold font-heading text-gray-900">TaskFlow 2</h1>
               </div>
               
               {/* Navigation Tabs */}
